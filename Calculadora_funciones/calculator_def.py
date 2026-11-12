@@ -21,15 +21,42 @@ def valores():
     num2 = float(input("Ingrese el segundo número: "))
     return num1, num2
 
-def ejecutra_operacion(opc, salir):
-    pass
-dsaf
+# aca se definira la funcion de ejecutar operacion, que recibira la opcion del usuario y la variable salir, y ejecutara la operacion correspondiente
+def ejecutar_operacion(opc, salir):
 
-# Codigo principa
-# aca se definira la variable salir, que sera utilizada para salir del bucle while
+    if 1 <= opc <= 4:
+        # aca se llamara a la funcion de valores, que pedira al usuario que ingrese dos numeros y los retornara
+        num1, num2 = valores()
+
+    # aca se definira la variable resultado, que sera utilizada para almacenar el resultado de la operacion
+    resultado = 0
+
+    if opc == 1: # Suma
+        resultado = num1 + num2
+        print(f"El resultado de la suma es: {resultado}")
+    elif opc == 2: # Resta
+        resultado = num1 - num2
+        print(f"El resultado de la resta es: {resultado}")
+    elif opc == 3: # Multiplicación
+        resultado = num1 * num2
+        print(f"El resultado de la multiplicación es: {resultado}")
+    elif opc == 4: # División
+        if num2 != 0:
+            resultado = num1 / num2
+            print(f"El resultado de la división es: {resultado}")
+        else:
+            print("Error: No se puede dividir entre cero.")
+    elif opc == 5: # Salir
+        salir = True
+        print("Gracias por usar la calculadora. ¡Hasta luego!")
+    else:
+        print("Opción no válida. Por favor, intente de nuevo.")
+
+    return salir
+
+
 salir = False
-
 while not salir:
     opcion = mostrar_calculadora()
-    salir = ejecutra_operacion(opcion, salir)
+    salir = ejecutar_operacion(opcion, salir)
 
