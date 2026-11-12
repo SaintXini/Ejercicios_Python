@@ -38,12 +38,20 @@ def maquina_productos(snacks, productos):
 
 # aca se definira la funcion de comprar producto, que recibira como parametros la lista de snacks y la lista de productos
 def comprar_producto(snacks, productos):
-    pass
+    id_snack = int(input("Ingrese el ID del snack que desea comprar: "))
+    productos.append(snacks[id_snack])
+    print(f"Ha comprado {snacks[id_snack]['nombre']} por Q {snacks[id_snack]['precio']:.2f}")
 
 # aca se definira la funcion de ver productos, que recibira como parametro la lista de productos
 def ver_productos(productos):
-    pass
+    ticket = "\nTicket de compra:\n"
+    total = 0
 
+    for producto in productos:
+        ticket += f"- {producto['nombre']}: Q {producto['precio']:.2f}\n"
+        total += producto['precio']
+    ticket += f"Total: Q {total:.2f}"
+    print(ticket)
 
 # LLamamos la funcion de la maquina de productos, pasandole como parametros la lista de snacks y la lista de productos
 maquina_productos(snacks, productos)
