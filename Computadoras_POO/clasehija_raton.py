@@ -23,7 +23,12 @@ class Raton(DispositivoEntrada):
 
 
 # Prueba
-raton1 = Raton("Logitech", "USB")
-print(raton1)  # Muestra la información del ratón
-raton2 = Raton("Microsoft", "Bluetooth")
-print(raton2)  # Muestra la información del ratón
+# El bloque if __name__ == "__main__": se utiliza para ejecutar código de prueba solo cuando el archivo se ejecuta directamente, y no cuando se importa como módulo en otro archivo.
+# Esto permite que el código de prueba se ejecute solo en el contexto de prueba y no afecte a otros módulos que puedan importar la clase Raton.
+# En este caso, se crean dos instancias de la clase Raton (raton1 y raton2) con diferentes marcas y tipos de entrada, y se imprime su información utilizando el método __str__ sobrescrito.
+# Esto permite verificar que la clase Raton funciona correctamente y que se pueden crear múltiples ratones con diferentes atributos.
+if __name__ == "__main__":
+    raton1 = Raton("Logitech", "USB")
+    print(raton1)  # Muestra la información del ratón
+    raton2 = Raton("Microsoft", "Bluetooth")
+    print(raton2)  # Muestra la información del ratón

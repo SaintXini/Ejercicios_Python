@@ -23,9 +23,14 @@ class Computadora:
         )
 
 # Prueba
-teclado1 = Teclado("Logitech", "USB")
-raton1 = Raton("Logitech", "USB")
-monitor1 = Monitor("Samsung", 24)
-computadora1 = Computadora("PC Gamer", monitor1, teclado1, raton1)
-print(computadora1)
+# El bloque if __name__ == "__main__": se utiliza para ejecutar código de prueba solo cuando el archivo se ejecuta directamente, y no cuando se importa como módulo en otro archivo.
+# Esto permite que el código de prueba se ejecute solo en el contexto de prueba y no afecte a otros módulos que puedan importar la clase Raton.
+# En este caso, se crean dos instancias de la clase Raton (raton1 y raton2) con diferentes marcas y tipos de entrada, y se imprime su información utilizando el método __str__ sobrescrito.
+# Esto permite verificar que la clase Raton funciona correctamente y que se pueden crear múltiples ratones con diferentes atributos.
+if __name__ == "__main__":
+    teclado1 = Teclado("Logitech", "USB")
+    raton1 = Raton("HP", "USB")
+    monitor1 = Monitor("Samsung", 24)
+    computadora1 = Computadora("PC Gamer", monitor1, teclado1, raton1)
+    print(computadora1)
 
