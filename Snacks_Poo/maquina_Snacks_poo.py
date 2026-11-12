@@ -32,11 +32,27 @@ def maquina_productos(snacks, productos):
         else:
             print("Opción no válida. Por favor, intente de nuevo.")
 
-# aca se definira la funcion de comprar producto, que recibira como parametros la lista de snacks y la lista de productos
+
 def comprar_producto(snacks, productos):
     id_snack = int(input("Ingrese el ID del snack que desea comprar: "))
-    productos.append(snacks[id_snack])
-    print(f"Ha comprado {snacks[id_snack]['nombre']} por Q {snacks[id_snack]['precio']:.2f}")
+    # REcorremos la lista de snacks
+    snack_encontrado = None
+
+    # Para encontrar el id que el usuario a proporcionado
+    for snack in snacks.lista_snacks:
+        if id_snack == snack.id:
+            # Si existe se le asigna a la variable "snack_encontrado"
+            snack_encontrado = snack
+            break
+
+        # Se vuelve a revisar si el valor no tinene "None"
+        if snack_encontrado is not None:
+            # Se agrega a la lista de productos
+            productos.append(snack_encontrado)
+            print(f"Ok, snack agregado: {snack_encontrado}")
+        else:
+            print(f"El id del snack es incorrecto: {id_snack}")
+
 
 # aca se definira la funcion de ver productos, que recibira como parametro la lista de productos
 def ver_productos(productos):
@@ -50,4 +66,4 @@ def ver_productos(productos):
     print(ticket)
 
 # LLamamos la funcion de la maquina de productos, pasandole como parametros la lista de snacks y la lista de productos
-# maquina_productos(snacks, productos)
+maquina_productos(snacks, productos)
