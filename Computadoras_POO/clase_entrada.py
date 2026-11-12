@@ -1,6 +1,7 @@
 class DispositivoEntrada:
-    def __init__(self, tipo):
-        self.tipo = tipo
 
-    def leer_entrada(self):
-        raise NotImplementedError("Este método debe ser implementado por las subclases.")
+    # Constructor de la clase DispositivoEntrada
+
+    def __init__(self,marca, tipo_entrada):
+        self.marca = marca
+        self.tipo_entrada = tipo_entrada
