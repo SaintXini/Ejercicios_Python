@@ -1,4 +1,5 @@
 from snacks import Snacks
+from snack import Snack
 
 # Lista de productos, utilizando una lista vacia
 productos = []
@@ -18,7 +19,8 @@ def maquina_productos(snacks, productos):
         print("\nSeleccione una opción:")
         print("1. Comprar snack")
         print("2. Ver productos comprados")
-        print("3. Salir")
+        print("3. Agregar nuevo producto")
+        print("4. Salir")
 
         opcion = int(input("Ingrese el número de la opción deseada: "))
 
@@ -27,6 +29,8 @@ def maquina_productos(snacks, productos):
         elif opcion == 2:
             ver_productos(productos)
         elif opcion == 3:
+            agregar_snack(snacks)
+        elif opcion == 4:
             salir = True
             print("Gracias por usar la máquina de snacks. ¡Hasta luego!")
         else:
@@ -40,7 +44,7 @@ def comprar_producto(snacks, productos):
 
     # Para encontrar el id que el usuario a proporcionado
     for snack in snacks.lista_snacks:
-        if id_snack == snack.id:
+        if id_snack == snack.id_snack:
             # Si existe se le asigna a la variable "snack_encontrado"
             snack_encontrado = snack
             break
@@ -60,10 +64,19 @@ def ver_productos(productos):
     total = 0
 
     for producto in productos:
-        ticket += f"- {producto['nombre']}: Q {producto['precio']:.2f}\n"
-        total += producto['precio']
+        ticket += f"- {producto.nombre}: Q  {producto.precio:.2f}\n"
+        total += producto.precio
     ticket += f"Total: Q {total:.2f}"
     print(ticket)
+
+# funcion agregar snack
+def agregar_snack(snacks):
+    nombre = input("Dame el nombre del snack: ")
+    precio = int(input("dame el precio del snack: "))
+    nuevo_snack = Snack(nombre, precio)
+    snacks.agregar_snack(nuevo_snack)
+    print(f"Tu snack {nuevo_snack} se ha agregado correctamente")
+    print(snacks)
 
 # LLamamos la funcion de la maquina de productos, pasandole como parametros la lista de snacks y la lista de productos
 maquina_productos(snacks, productos)

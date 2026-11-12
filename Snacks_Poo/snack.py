@@ -10,5 +10,5 @@ class Snack:
         self.precio = precio
 
     def __str__(self):
-        return f"Snack [ID: {self.id_snack}, Nombre: {self.nombre}, Precio: ${self.precio}]"
+        return f"Snack [ID: {self.id_snack}, Nombre: {self.nombre}, Precio: Q {self.precio}]"
     
