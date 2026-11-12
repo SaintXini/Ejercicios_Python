@@ -1,4 +1,4 @@
-from clase_entrada import DispositivoEntrada
+from clasePa_entrada import DispositivoEntrada
 
 
 class Raton(DispositivoEntrada):
