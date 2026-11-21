@@ -27,11 +27,40 @@ class ClienteDAO:
         except Exception as e:
             print(f"Error de: {e}")
         finally:
+            # Si el objeto no tiene el valor de none se cierra el cursos y se libera la conexion
+            if conexion is not None:
+                cursor.close()
+                Conexion.liberar_conexion(conexion)
+
+    # Metodo insertar
+    @classmethod
+    def insertar(cls, cliente):
+        conexion = None
+        try:
+            conexion = Conexion.obtener_conexion()
+            cursor = conexion.cursor()
+            # accedemos a la informacións
+            valores = (cliente.nombre, cliente.apellido, cliente.membresia)
+            # aca agregamos el query que utilizaremos para enviarlo a la BD
+            cursor.execute(cls.INSERTAR, valores)
+            # guardad los cambios realizados
+            conexion.commit()
+            # cuantos registros se insertaron
+            return cursor.rowcount
+        except Exception as e:
+            print(f"Error de ingreso de datos: {e}")
+        finally:
             if conexion is not None:
                 cursor.close()
                 Conexion.liberar_conexion(conexion)
 
 if __name__ == "__main__":
+    # Insertar un nuevo registro
+#    cliente1 = Cliente(nombre = "Sarai", apellido ="Villatoro", membresia=153)
+    # ver cuantos se han incertado
+#    clientes_insertados = ClienteDAO.insertar(cliente1)
+#    print(f"Clientes agregados: {clientes_insertados}")
+
     # Seleccionar clientes
     # Nos mostrara un listado de clientes
     clientes = ClienteDAO.seleccionar()
