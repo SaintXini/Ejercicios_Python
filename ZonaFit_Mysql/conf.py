@@ -27,8 +27,9 @@ class Conexion:
                     user=cls.USERNAME,
                     password=cls.PASSWORD
                 )
-                print(f"Nombre del pool: {cls.pool.pool_name}")
-                print(f"Tamño del pool: {cls.pool.pool_size}")
+                # Para verificar que si funcionaba se utilizo esto
+                #print(f"Nombre del pool: {cls.pool.pool_name}")
+                #print(f"Tamño del pool: {cls.pool.pool_size}")
                 return cls.pool
             except Error as e:
                 print(f"Ocurrio un error al establecer un pool: {e}")
@@ -39,11 +40,17 @@ class Conexion:
     def obtener_conexion(cls):
         return cls.obtener_pool().get_connection()
 
+    # En lugar que se destruya su metodo regresa nuevamente al pool de conexiones
+    @classmethod
+    def liberar_conexion(cls, conexion):
+        conexion.close()
 
 # esto hace que solo este archivo se ejecute, si en dado caso lo levanto desde otro este no funcionara por decirlo así, si estan conectados varios archivos
 if __name__ == '__main__':
     # creación del objeto pool
-    pool = Conexion.obtener_pool()
-    print(pool)
+    #pool = Conexion.obtener_pool()
+    #print(pool)
     # obtener un objeto conexion
-    cnx1 = Conexion.obtener_conexion
+    cnx1 = Conexion.obtener_conexion()
+    print(cnx1)
+    Conexion.liberar_conexion(cnx1)
