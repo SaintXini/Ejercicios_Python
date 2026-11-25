@@ -54,12 +54,39 @@ class ClienteDAO:
                 cursor.close()
                 Conexion.liberar_conexion(conexion)
 
+    # Metodo para actualizar
+    @classmethod
+    def actualizar(cls, cliente):
+        conexion = None
+        try:
+            conexion = Conexion.obtener_conexion()
+            cursor = conexion.cursor()
+            # se definene los valores que posteriormente serán llamados
+            valores = (cliente.nombre, cliente.apellido,
+                       cliente.membresia, cliente.id)
+            # aca se llaman los valores definidos 
+            cursor.execute(cls.ACTUALIZAR, valores)
+            conexion.commit()
+            return cursor.rowcount
+
+        except Exception as e:
+            print(f"Ocurrio un error en la actualización: {e}")
+        finally:
+            if conexion is not None:
+                cursor.close()
+                Conexion.liberar_conexion(conexion)
+
 if __name__ == "__main__":
     # Insertar un nuevo registro
 #    cliente1 = Cliente(nombre = "Sarai", apellido ="Villatoro", membresia=153)
     # ver cuantos se han incertado
 #    clientes_insertados = ClienteDAO.insertar(cliente1)
 #    print(f"Clientes agregados: {clientes_insertados}")
+
+# Actualizar
+    #cliente_actualizar = Cliente(3, "Alexa", "Tellez", 400)
+    #clientes_actualizados = ClienteDAO.actualizar(cliente_actualizar)
+    #print(f"clientes actualizados: {clientes_actualizados}")
 
     # Seleccionar clientes
     # Nos mostrara un listado de clientes
