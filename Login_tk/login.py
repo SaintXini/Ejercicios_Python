@@ -1,5 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
+from tkinter.messagebox import showinfo
+from tkinter.messagebox import showerror
 
 ven = tk.Tk()
 ven.geometry("600x400")
@@ -46,7 +48,13 @@ login_boton.grid(row=3, column=0, columnspan=2, padx=5, pady=5)
 frame.grid(row=0, column=0)
 
 def validar(event):
-    pass
+    usuario = usuario_caja.get()
+    password = password_caja_txt.get()
+    # usuario -> root, password -> admin
+    if usuario == "root" and password == "admin":
+        showinfo(title="Login", message="usuario correcto")
+    else:
+        showerror(title="Login", message="Usuario incorrecto")
 
 # asociar eventos a el boton de login
 # bind nos permite asociar a algún evento
