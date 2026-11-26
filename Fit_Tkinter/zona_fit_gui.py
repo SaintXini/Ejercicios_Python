@@ -68,6 +68,11 @@ class App(tk.Tk):
                               values=(c.id, c.nombre, c.apellido, c.membresia))
 
 
+        # agregamos el scrollbar
+        scrollbar = ttk.Scrollbar(self.frame_tabla, orient=tk.VERTICAL, command=self.tabla.yview)
+        self.tabla.configure(yscroll=scrollbar.set)
+        scrollbar.grid(row=0, column=1, sticky=tk.NS)
+
         # mostrar la tabla
         self.tabla.grid(row=0, column=0)
         # mostramos el frame
