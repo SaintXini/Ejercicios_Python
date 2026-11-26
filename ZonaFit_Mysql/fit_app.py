@@ -1,5 +1,5 @@
-from cliente_dao import ClienteDAO
-from cliente import Cliente
+from Fit_Tkinter.cliente_dao import ClienteDAO
+from Fit_Tkinter.cliente import Cliente
 
 print("############ Clientes de zona Fit ##############")
 

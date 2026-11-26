@@ -1,0 +1,120 @@
+from Fit_Tkinter.conf import Conexion
+from Fit_Tkinter.cliente import Cliente
+
+class ClienteDAO:
+    # Variables de las constantes utilizando metodos querys
+    SELECCIONAR = 'SELECT * FROM cliente'
+    INSERTAR = 'INSERT INTO cliente(nombre, apellido, membresia) VALUES(%s, %s, %s)'
+    ACTUALIZAR = 'UPDATE cliente SET nombre=%s, apellido=%s, membresia=%s WHERE id=%s'
+    ELIMINAR = 'DELETE FROM cliente WHERE id=%s'
+
+    # Metodo seleccionar
+    @classmethod
+    def seleccionar(cls):
+        conexion = None
+        try:
+            conexion = Conexion.obtener_conexion()
+            cursor = conexion.cursor()
+            cursor.execute(cls.SELECCIONAR)
+            # REgrese todos los registros que tenemos en la lista de clientes o las tuplas
+            registros = cursor.fetchall()
+            # Mapeo de la clase-tabla cliente
+            clientes = []
+            for registro in registros:
+                cliente = Cliente(registro[0], registro[1], registro[2], registro[3])
+                clientes.append(cliente)
+            return clientes
+        except Exception as e:
+            print(f"Error de: {e}")
+        finally:
+            # Si el objeto no tiene el valor de none se cierra el cursos y se libera la conexion
+            if conexion is not None:
+                cursor.close()
+                Conexion.liberar_conexion(conexion)
+
+    # Metodo insertar
+    @classmethod
+    def insertar(cls, cliente):
+        conexion = None
+        try:
+            conexion = Conexion.obtener_conexion()
+            cursor = conexion.cursor()
+            # accedemos a la informacións
+            valores = (cliente.nombre, cliente.apellido, cliente.membresia)
+            # aca agregamos el query que utilizaremos para enviarlo a la BD
+            cursor.execute(cls.INSERTAR, valores)
+            # guardad los cambios realizados
+            conexion.commit()
+            # cuantos registros se insertaron
+            return cursor.rowcount
+        except Exception as e:
+            print(f"Error de ingreso de datos: {e}")
+        finally:
+            if conexion is not None:
+                cursor.close()
+                Conexion.liberar_conexion(conexion)
+
+    # Metodo para actualizar
+    @classmethod
+    def actualizar(cls, cliente):
+        conexion = None
+        try:
+            conexion = Conexion.obtener_conexion()
+            cursor = conexion.cursor()
+            # se definene los valores que posteriormente serán llamados
+            valores = (cliente.nombre, cliente.apellido,
+                       cliente.membresia, cliente.id)
+            # aca se llaman los valores definidos 
+            cursor.execute(cls.ACTUALIZAR, valores)
+            conexion.commit()
+            return cursor.rowcount
+
+        except Exception as e:
+            print(f"Ocurrio un error en la actualización: {e}")
+        finally:
+            if conexion is not None:
+                cursor.close()
+                Conexion.liberar_conexion(conexion)
+
+    @classmethod
+    def eliminar ( cls, cliente):
+        conexion = None
+        try:
+            conexion = Conexion.obtener_conexion()
+            cursor = conexion.cursor()
+            # se aagrega la coma si no luego me podría dar eerores
+            valores = (cliente.id,)
+            cursor.execute(cls.ELIMINAR, valores)
+            conexion.commit()
+            return cursor.rowcount
+
+        except Exception as e:
+            print (f"Ocurrio un error: {e}")
+        finally:
+            if conexion is not None:
+                cursor.close()
+                Conexion.liberar_conexion(conexion)
+
+
+if __name__ == "__main__":
+    # Insertar un nuevo registro
+#    cliente1 = Cliente(nombre = "Sarai", apellido ="Villatoro", membresia=153)
+    # ver cuantos se han incertado
+#    clientes_insertados = ClienteDAO.insertar(cliente1)
+#    print(f"Clientes agregados: {clientes_insertados}")
+
+# Actualizar
+    #cliente_actualizar = Cliente(3, "Alexa", "Tellez", 400)
+    #clientes_actualizados = ClienteDAO.actualizar(cliente_actualizar)
+    #print(f"clientes actualizados: {clientes_actualizados}")
+
+
+# Eliminar cliente
+    #cliente_eliminar = Cliente(id=8)
+    #cliente_elminados = ClienteDAO.eliminar(cliente_eliminar)
+    #print(f"Clientes eliminados: {cliente_elminados}")
+    # Seleccionar clientes
+    # Nos mostrara un listado de clientes
+    clientes = ClienteDAO.seleccionar()
+    for cliente in clientes:
+        print(cliente)
