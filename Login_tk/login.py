@@ -45,5 +45,13 @@ login_boton.grid(row=3, column=0, columnspan=2, padx=5, pady=5)
 
 frame.grid(row=0, column=0)
 
+def validar(event):
+    pass
+
+# asociar eventos a el boton de login
+# bind nos permite asociar a algún evento
+login_boton.bind('<Return>', validar) # presionar la telca enter
+login_boton.bind('<Button-1>', validar) # click izq del mouse
+
 ven.mainloop()
 
