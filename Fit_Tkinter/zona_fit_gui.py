@@ -1,6 +1,8 @@
 import tkinter as tk
 from tkinter import ttk
 
+from cliente_dao import ClienteDAO
+
 class App(tk.Tk):
     COLOR_VENTANA = "#1d2d44"
 
@@ -56,6 +58,15 @@ class App(tk.Tk):
         self.tabla.column("Nombre", anchor=tk.W, width=120)
         self.tabla.column("Apellido", anchor=tk.W, width=120)
         self.tabla.column("Membresia", anchor=tk.W, width=120)
+
+        # Cargar los datos de los clientes de la BD
+        clientes = ClienteDAO.seleccionar()
+        # en la variable c tenemos el objeto cliente que esta recorriendo, pór cada uno de los datos que tenemos
+        for c in clientes:
+            self.tabla.insert(parent="",
+                              index=tk.END,
+                              values=(c.id, c.nombre, c.apellido, c.membresia))
+
 
         # mostrar la tabla
         self.tabla.grid(row=0, column=0)

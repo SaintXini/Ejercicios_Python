@@ -1,5 +1,5 @@
-from Fit_Tkinter.conf import Conexion
-from Fit_Tkinter.cliente import Cliente
+from conf import Conexion
+from cliente import Cliente
 
 class ClienteDAO:
     # Variables de las constantes utilizando metodos querys
