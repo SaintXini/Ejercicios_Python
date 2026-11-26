@@ -40,9 +40,22 @@ class App(tk.Tk):
         self.frame_tabla = ttk.Frame(self)
         # Definimos los estilos de la tabla
         self.estilos.configure("Treeview", background="gray", foreground="black", fieldbackground="gray", rowheight=30)
-        columnas = ("ID", "NOMBRE", "APELLIDO", "MEMBRESIA")
+        columnas = ("Id", "Nombre", "Apellido", "Membresia")
         # esto hace que los cambios que se realizen solo afecte a la tabla y no a todo lo demas que se encuentra en dicha area
         self.tabla = ttk.Treeview(self.frame_tabla, columns=columnas, show="headings")
+
+        # agregamos los acabeceros ot itulos
+        # y aca definimos donde se mostrara y en que posición se encontrara de la columna
+        self.tabla.heading("Id", text="ID", anchor=tk.CENTER)
+        self.tabla.heading("Nombre", text="NOMBRE", anchor=tk.W)
+        self.tabla.heading("Apellido", text="APELLIDO", anchor=tk.W)
+        self.tabla.heading("Membresia", text="MEMBRESIA", anchor=tk.W)
+
+        # definimos las columnas
+        self.tabla.column("Id", anchor=tk.CENTER, width=80)
+        self.tabla.column("Nombre", anchor=tk.W, width=120)
+        self.tabla.column("Apellido", anchor=tk.W, width=120)
+        self.tabla.column("Membresia", anchor=tk.W, width=120)
 
         # mostrar la tabla
         self.tabla.grid(row=0, column=0)
