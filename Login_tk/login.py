@@ -6,6 +6,11 @@ ven.geometry("600x400")
 ven.title("Ingreso del sistema")
 ven.configure(background="#1d2d44")
 
+# Creamos un nuevo estilo
+estilos = ttk.Style()
+estilos.theme_use("clam")
+estilos.configure(ven, background = "#1d2d44", foreground = "white", fieldbackground = "gray")
+
 ven.columnconfigure(0, weight=1)
 ven.rowconfigure(0, weight=1)
 
