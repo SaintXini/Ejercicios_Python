@@ -13,6 +13,7 @@ class App(tk.Tk):
         self.mostrar_titulo()
         self.mostrar_formulario()
         self.mostrar_tabla()
+        self.mostrar_botons()
 
     def configurar_ventana(self):
         # Tamaño y titulo
@@ -57,7 +58,6 @@ class App(tk.Tk):
         # Publicamos el frame
         self.frame_f.grid(row=1, column=0)
 
-
     def mostrar_tabla(self):
         # creamos un frame para poder mostrar la tabla que ira del lado izq
         self.frame_tabla = ttk.Frame(self)
@@ -99,6 +99,30 @@ class App(tk.Tk):
         # mostramos el frame
         self.frame_tabla.grid(row=1, column=1, padx=30)
 
+    def mostrar_botons(self):
+        self.frame_b = ttk.Frame()
+        # Creamos los botonoes
+        # Agregar
+        agregar_b = ttk.Button(self.frame_b, text="Guardar", command=self.validar_cliente)
+        agregar_b.grid(row=0, column=0, padx=30)
+        # Eliminar
+        eliminar_b = ttk.Button(self.frame_b, text="Eliminar", command=self.eliminar_cliente)
+        eliminar_b.grid(row=0, column=1, padx=30)
+        # limpiar la información
+        limpiar_b = ttk.Button(self.frame_b, text="Limpiar", command=self.limpiar_datos)
+        limpiar_b.grid(row=0, column=2, padx=30)
+
+        # que se pueda ver
+        self.frame_b.grid(row=2, column=0, columnspan=2, pady=40)
+
+    def validar_cliente(self):
+        pass
+
+    def eliminar_cliente(self):
+        pass
+
+    def limpiar_datos(self):
+        pass
 
 # para inicializar la pantalla
 
