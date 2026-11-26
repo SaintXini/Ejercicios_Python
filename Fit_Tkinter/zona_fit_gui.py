@@ -105,12 +105,19 @@ class App(tk.Tk):
         # Agregar
         agregar_b = ttk.Button(self.frame_b, text="Guardar", command=self.validar_cliente)
         agregar_b.grid(row=0, column=0, padx=30)
+        
         # Eliminar
         eliminar_b = ttk.Button(self.frame_b, text="Eliminar", command=self.eliminar_cliente)
         eliminar_b.grid(row=0, column=1, padx=30)
+        
         # limpiar la información
         limpiar_b = ttk.Button(self.frame_b, text="Limpiar", command=self.limpiar_datos)
         limpiar_b.grid(row=0, column=2, padx=30)
+        
+        # aplicamos un estilo al estar pocisionados sobre el boton
+        # ojo tengo que utilizar comilla simple áca, debido a que no se si ingrese mal algo o es por las comillas, pero no me aparecía hasta que cambie
+        self.estilos.configure('TButton', background='#005f73')
+        self.estilos.map('TButton', background=[('active', '#0a9396')])
 
         # que se pueda ver
         self.frame_b.grid(row=2, column=0, columnspan=2, pady=40)
