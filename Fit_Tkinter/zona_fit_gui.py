@@ -35,7 +35,28 @@ class App(tk.Tk):
        etiqueta.grid(row=0, column=0, columnspan=2, pady=30)
 
     def mostrar_formulario(self):
-        pass
+        self.frame_f = ttk.Frame()
+        # NOmbre
+        nombre_label = ttk.Label(self.frame_f, text="Nombre: ")
+        nombre_label.grid(row=0, column=0, sticky=tk.W, pady=30, padx=5)
+        self.nombre_t = ttk.Entry(self.frame_f)
+        self.nombre_t.grid(row=0, column=1)
+
+        # Apellido
+        apellido_label = ttk.Label(self.frame_f, text="Apellido: ")
+        apellido_label.grid(row=1, column=0, sticky=tk.W, pady=30, padx=5)
+        self.apellido_t = ttk.Entry(self.frame_f)
+        self.apellido_t.grid(row=1, column=1)
+
+        # Membresia
+        membresia_label = ttk.Label(self.frame_f, text="Membresia: ")
+        membresia_label.grid(row=2, column=0, sticky=tk.W, pady=30, padx=5)
+        self.membresia_t = ttk.Entry(self.frame_f)
+        self.membresia_t.grid(row=2, column=1)     
+
+        # Publicamos el frame
+        self.frame_f.grid(row=1, column=0)
+
 
     def mostrar_tabla(self):
         # creamos un frame para poder mostrar la tabla que ira del lado izq
