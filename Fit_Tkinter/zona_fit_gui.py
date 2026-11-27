@@ -157,15 +157,21 @@ class App(tk.Tk):
             return False
 
     def guardar_cliente(self):
-        # Reciérar ñps vañpres de ñas cakas de textp
+        # Recuperar los valores de los txt
         nombre = self.nombre_t.get()
         apellido = self.apellido_t.get()
         membresia = self.membresia_t.get()
-        
-        # aca importamos la clase Cliente, y posteriormente a ello los insertamos a la base de datos y mostramos el mensaje
-        cliente = Cliente(nombre = nombre, apellido = apellido, membresia = membresia)
-        ClienteDAO.insertar(cliente)
-        showinfo(title="Agregado correctamente", message="Cliente agregado correctamente.....:D")
+
+        # Validamos el valor de id_cliente
+        if self.id_cliente is None: # si no esta registrado o es un nuevo registro
+            # aca importamos la clase Cliente, y posteriormente a ello los insertamos a la base de datos y mostramos el mensaje
+            cliente = Cliente(nombre = nombre, apellido = apellido, membresia = membresia)
+            ClienteDAO.insertar(cliente)
+            showinfo(title="Agregado correctamente", message="Cliente agregado correctamente.....:D")
+        else: # actualizar los cuadros de texto, si reconoce que ya posee un id
+            cliente = Cliente(self.id_cliente, nombre, apellido, membresia)
+            ClienteDAO.actualizar(cliente)
+            showinfo(title='Actualizar', message="La información del cliente a sido actualizada... :D")
 
         # Volvemos a mostrar los datos de la tabla de la derecha 
         self.recargar_datos()
