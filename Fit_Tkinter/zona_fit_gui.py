@@ -1,4 +1,6 @@
 import tkinter as tk
+from cliente import Cliente
+
 from tkinter import ttk
 from tkinter.messagebox import showinfo
 from tkinter.messagebox import showerror
@@ -14,7 +16,7 @@ class App(tk.Tk):
         self.configurar_grid()
         self.mostrar_titulo()
         self.mostrar_formulario()
-        self.mostrar_tabla()
+        self.cargar_tabla()
         self.mostrar_botons()
 
     def configurar_ventana(self):
@@ -60,7 +62,7 @@ class App(tk.Tk):
         # Publicamos el frame
         self.frame_f.grid(row=1, column=0)
 
-    def mostrar_tabla(self):
+    def cargar_tabla(self):
         # creamos un frame para poder mostrar la tabla que ira del lado izq
         self.frame_tabla = ttk.Frame(self)
         # Definimos los estilos de la tabla
@@ -149,12 +151,36 @@ class App(tk.Tk):
             return False
 
     def guardar_cliente(self):
-        pass
+        # Reciérar ñps vañpres de ñas cakas de textp
+        nombre = self.nombre_t.get()
+        apellido = self.apellido_t.get()
+        membresia = self.membresia_t.get()
+        
+        # aca importamos la clase Cliente, y posteriormente a ello los insertamos a la base de datos y mostramos el mensaje
+        cliente = Cliente(nombre = nombre, apellido = apellido, membresia = membresia)
+        ClienteDAO.insertar(cliente)
+        showinfo(title="Agregado correctamente", message="Cliente agregado correctamente.....:D")
 
-    def eliminar_cliente(self):
-        pass
+        # Volvemos a mostrar los datos de la tabla de la derecha 
+        self.recargar_datos()
+
+    # esta funcion ayudara a recargar la tabla del lado derecho y limpiar lo que ya habiamos agregado
+    def recargar_datos(self):
+        # volvemos a cargar la tabla
+        self.cargar_tabla()
+        # Limpiamos los datos de los text
+        self.limpiar_datos()
 
     def limpiar_datos(self):
+        self.limpiar_formulario()
+
+    def limpiar_formulario(self):
+        # esto limpiara desde el inicio hasta el final de cualquier cadena que sea escrita se eliminara
+        self.nombre_t.delete(0, tk.END)
+        self.apellido_t.delete(0, tk.END)
+        self.membresia_t.delete(0, tk.END)
+
+    def eliminar_cliente(self):
         pass
 
 # para inicializar la pantalla
