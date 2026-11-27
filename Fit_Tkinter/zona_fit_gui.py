@@ -12,6 +12,7 @@ class App(tk.Tk):
 
     def __init__(self):
         super().__init__()
+        self.id_cliente = None
         self.configurar_ventana()
         self.configurar_grid()
         self.mostrar_titulo()
@@ -100,6 +101,11 @@ class App(tk.Tk):
 
         # mostrar la tabla
         self.tabla.grid(row=0, column=0)
+
+        # Esto funcionara al momento de seleccionar algun cliente nos lo mostrara del lado del formulario
+        self.tabla.bind('<<TreeviewSelect>>', self.cargar_cliente)
+
+
         # mostramos el frame
         self.frame_tabla.grid(row=1, column=1, padx=30)
 
@@ -164,6 +170,26 @@ class App(tk.Tk):
         # Volvemos a mostrar los datos de la tabla de la derecha 
         self.recargar_datos()
 
+    # se define tambien con event, debido a que el parametro es llamado a traves de un eventos
+    def cargar_cliente(self, event):
+        # esto hara que nos muestre solo el elemento seleccionado por ende se marca con 0, porque puede llegar a mostrar todos los elelmentos aunque hayamos seleccionado uno
+        elemento_seleccionado = self.tabla.selection()[0]
+        # con esto nos meustra el elemento seleccionado de la tabla
+        elemento = self.tabla.item(elemento_seleccionado)
+        cliente_t = elemento['values'] # tupla con valores
+        # recuperamos los valores del cliente
+        self.id_cliente = cliente_t[0]
+        nombre = cliente_t[1]
+        apellido = cliente_t[2]
+        membresia = cliente_t[3]
+
+        # antes de cargar limpiamos el formulario
+        self.limpiar_formulario()
+        # Cargamos los valores en el formulario
+        self.nombre_t.insert(0, nombre)
+        self.apellido_t.insert(0, apellido)
+        self.membresia_t.insert(0, membresia)
+
     # esta funcion ayudara a recargar la tabla del lado derecho y limpiar lo que ya habiamos agregado
     def recargar_datos(self):
         # volvemos a cargar la tabla
@@ -173,6 +199,7 @@ class App(tk.Tk):
 
     def limpiar_datos(self):
         self.limpiar_formulario()
+        self.id_cliente = None
 
     def limpiar_formulario(self):
         # esto limpiara desde el inicio hasta el final de cualquier cadena que sea escrita se eliminara
