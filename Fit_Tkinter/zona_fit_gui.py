@@ -1,5 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
+from tkinter.messagebox import showinfo
+from tkinter.messagebox import showerror
 
 from cliente_dao import ClienteDAO
 
@@ -40,19 +42,19 @@ class App(tk.Tk):
         # NOmbre
         nombre_label = ttk.Label(self.frame_f, text="Nombre: ")
         nombre_label.grid(row=0, column=0, sticky=tk.W, pady=30, padx=5)
-        self.nombre_t = ttk.Entry(self.frame_f)
+        self.nombre_t = ttk.Entry(self.frame_f, foreground="black")
         self.nombre_t.grid(row=0, column=1)
 
         # Apellido
         apellido_label = ttk.Label(self.frame_f, text="Apellido: ")
         apellido_label.grid(row=1, column=0, sticky=tk.W, pady=30, padx=5)
-        self.apellido_t = ttk.Entry(self.frame_f)
+        self.apellido_t = ttk.Entry(self.frame_f, foreground="black")
         self.apellido_t.grid(row=1, column=1)
 
         # Membresia
         membresia_label = ttk.Label(self.frame_f, text="Membresia: ")
         membresia_label.grid(row=2, column=0, sticky=tk.W, pady=30, padx=5)
-        self.membresia_t = ttk.Entry(self.frame_f)
+        self.membresia_t = ttk.Entry(self.frame_f, foreground="black")
         self.membresia_t.grid(row=2, column=1)     
 
         # Publicamos el frame
@@ -123,6 +125,30 @@ class App(tk.Tk):
         self.frame_b.grid(row=2, column=0, columnspan=2, pady=40)
 
     def validar_cliente(self):
+        # VAldidamos que los campos tenga inforamción
+        if (self.nombre_t.get() and self.apellido_t.get() and self.membresia_t.get()):
+            if self.validar_membresia():
+                self.guardar_cliente()
+            else:
+                showerror(title="Atencion", message="el valor de membresia no es numerico")
+                # aca le pedimos que nos borre desde el inicio de la cadena hasta el final
+                self.membresia_t.delete(0, tk.END)
+                # que el cursor pueda hacer la modificación
+                self.membresia_t.focus_set()
+            # si el usuario no proporciono información para los campos
+        else:
+            showerror(title="Atención", message="Debe completar el formulario")
+            self.nombre_t.focus_set()
+
+    # si el valor es verdadero se guarda el cliente
+    def validar_membresia(self):
+        try:
+            int(self.membresia_t.get())
+            return True
+        except:
+            return False
+
+    def guardar_cliente(self):
         pass
 
     def eliminar_cliente(self):
