@@ -214,7 +214,13 @@ class App(tk.Tk):
         self.membresia_t.delete(0, tk.END)
 
     def eliminar_cliente(self):
-        pass
+        if self.id_cliente is None:
+            showerror(title="Error", message="No existe ningun cliente seleccionado")
+        else:
+            cliente = Cliente(id=self.id_cliente)
+            ClienteDAO.eliminar(cliente)
+            showinfo(title="Eliminado", message="El cliente a sido eliminado.. :C")
+            self.recargar_datos()
 
 # para inicializar la pantalla
 
